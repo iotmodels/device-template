@@ -2,7 +2,6 @@
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.245.2/containers/dotnet-mssql
 {
 	"name": "C# (.NET) and Mosquitto",
-	"service": "app",
 	"workspaceFolder": "/workspace",
 
 	// Configure tool-specific properties.
@@ -54,6 +53,14 @@
 	// postCreateCommand.sh parameters: $1=SA password, $2=dacpac path, $3=sql script(s) path
 	"features": {
 		"docker-in-docker": "latest"
-	}
+	},
+	"build": {
+		"dockerfile": "Dockerfile",
+		"args": {
+			"VARIANT": "6.0-bullseye",
+			"NODE_VERSION": "none"
+		}
+	},
+	"remoteUser": "vscode"
 
 }
