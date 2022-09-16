@@ -1,0 +1,1 @@
+cp mqtt-device/Properties/launchSettings.json.template mqtt-device/Properties/launchSettings.json
