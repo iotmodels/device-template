@@ -37,10 +37,10 @@
         "ConnectionStrings__cs": "HostName=<hub=name>.azure-devices.net;X509Key=<cert.pem>|<cert.key>"
       }
     },
-    "broker-x509": {
+    "mosquitto_tls": {
       "commandName": "Project",
       "environmentVariables": {
-        "ConnectionStrings__cs": "HostName=test.mosquitto.org;tcpport=8884;X509Key=<cert.pem>|<cert.key>;CaFile=<ca.crt>"
+        "ConnectionStrings__cs": "HostName=test.mosquitto.org;TcpPort=8883;CaFile=ca.pem"
       }
     }
   }
