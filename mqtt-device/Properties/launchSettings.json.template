@@ -3,13 +3,13 @@
     "mosquitto-localhost": {
       "commandName": "Project",
       "environmentVariables": {
-        "ConnectionStrings__cs": "HostName=localhost;TcpPort=1883;UseTls=false;DeviceId=sampledevice;UserName=user;Password=password"
+        "ConnectionStrings__cs": "HostName=localhost;TcpPort=1883;UseTls=false;ClientId=sampledevice;UserName=user;Password=password"
       }
     },
     "mosquitto-localhost-tls": {
       "commandName": "Project",
       "environmentVariables": {
-        "ConnectionStrings__cs": "HostName=localhost;TcpPort=8883;DeviceId=sampledevice;UserName=user;Password=password;CaFile=ca.pem"
+        "ConnectionStrings__cs": "HostName=localhost;TcpPort=8883;ClientId=sampledevice;UserName=user;Password=password;CaFile=ca.pem"
       }
     },
     "iothub": {
