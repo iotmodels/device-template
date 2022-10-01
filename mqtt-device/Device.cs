@@ -31,17 +31,16 @@ public class Device : BackgroundService
 
         client.Property_interval.OnMessage = Property_interval_UpdateHandler;
         client.Command_echo.OnMessage = Cmd_echo_Handler;
-    
-        await client.Property_sdkInfo.SendMessageAsync(ClientFactory.NuGetPackageVersion);
-
-       if (client is HubMqttClient)
+        if (client is HubMqttClient hubClient)
         {
+            client.InitialState = await hubClient.GetTwinAsync(stoppingToken);
             await TwinInitializer.InitPropertyAsync(client.Connection, client.InitialState, client.Property_interval, "interval", default_interval);
         }
         else
         {
             await PropertyInitializer.InitPropertyAsync(client.Property_interval, default_interval);
         }
+        await client.Property_sdkInfo.SendMessageAsync(ClientFactory.NuGetPackageVersion, stoppingToken);
 
 
         double lastTemp = 21;
@@ -59,7 +58,6 @@ public class Device : BackgroundService
         ArgumentNullException.ThrowIfNull(client);
         _logger.LogInformation("New prop interval received");
         var ack = new Ack<int>();
-        client.Property_interval.Version++;
         if (p > 0)
         {
             client.Property_interval.Value = p;
