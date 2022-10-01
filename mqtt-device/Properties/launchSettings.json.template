@@ -1,15 +1,15 @@
 ﻿{
   "profiles": {
-    "mosquitto-localhost": {
+    "localhost": {
       "commandName": "Project",
       "environmentVariables": {
-        "ConnectionStrings__cs": "HostName=localhost;TcpPort=1883;UseTls=false;DeviceId=sampledevice;UserName=user;Password=password"
+        "ConnectionStrings__cs": "HostName=localhost;TcpPort=1883;UseTls=false;DeviceId=mqtt-device;UserName=user;Password=password"
       }
     },
-    "mosquitto-localhost-tls": {
+    "localhost_tls": {
       "commandName": "Project",
       "environmentVariables": {
-        "ConnectionStrings__cs": "HostName=localhost;TcpPort=8883;DeviceId=sampledevice;UserName=user;Password=password;CaFile=ca.pem"
+        "ConnectionStrings__cs": "HostName=localhost;DeviceId=mqtt-device;UserName=user;Password=password;CaFile=localhost.pem"
       }
     },
     "iothub": {
@@ -37,10 +37,10 @@
         "ConnectionStrings__cs": "HostName=<hub=name>.azure-devices.net;X509Key=<cert.pem>|<cert.key>"
       }
     },
-    "broker-x509": {
+    "mosquitto_tls": {
       "commandName": "Project",
       "environmentVariables": {
-        "ConnectionStrings__cs": "HostName=test.mosquitto.org;tcpport=8884;X509Key=<cert.pem>|<cert.key>;CaFile=<ca.crt>"
+        "ConnectionStrings__cs": "HostName=test.mosquitto.org;ClientId=mqtt-device;CaFile=test.mosquitto.org.pem"
       }
     }
   }
