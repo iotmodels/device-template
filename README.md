@@ -14,6 +14,10 @@ This repo can be used as a template repo to create new MQTT devices using [MQTTn
 
 ## How to run
 
+The dotnet project contains a `launchSettings.json.template` with some pre-configured profiles. To avoid publishing this file with credentials, this file it's git.ignored. Run `./init-template.sh` to rename this file, then use `dotnet run --launch-profile <profile>`.
+
+
+
 ### MQTT Broker
 To connect to a local MQTT broker use [mosquitto-local](https://github.com/ridomin/mosquitto-local) Docker image.
 
