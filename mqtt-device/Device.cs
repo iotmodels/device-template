@@ -3,7 +3,6 @@ using MQTTnet.Extensions.MultiCloud;
 using MQTTnet.Extensions.MultiCloud.AzureIoTClient;
 using MQTTnet.Extensions.MultiCloud.BrokerIoTClient;
 using MQTTnet.Extensions.MultiCloud.Connections;
-using System.Reflection;
 
 namespace mqtt_device;
 
@@ -27,7 +26,7 @@ public class Device : BackgroundService
         var cs = new ConnectionSettings(_configuration.GetConnectionString("cs"));
         _logger.LogWarning("Connecting to .. {cs}", cs);
         client = await new ClientFactory(_configuration).CreateDeviceTemplateClientAsync(stoppingToken);
-        _logger.LogWarning("Connected to {settings}",ClientFactory.computedSettings );
+        _logger.LogWarning("Connected to {settings}", ClientFactory.computedSettings);
 
         client.Property_interval.OnMessage = Property_interval_UpdateHandler;
         client.Command_echo.OnMessage = Cmd_echo_Handler;
@@ -82,8 +81,9 @@ public class Device : BackgroundService
         return await Task.FromResult(req + req);
     }
 
-    readonly Random random = new();
-    double GenerateSensorReading(double currentValue, double min, double max)
+    private readonly Random random = new();
+
+    private double GenerateSensorReading(double currentValue, double min, double max)
     {
         double percentage = 15;
         double value = currentValue * (1 + (percentage / 100 * (2 * random.NextDouble() - 1)));

@@ -1,5 +1,4 @@
 using mqtt_device;
-using System.Diagnostics;
 
 //using ConsoleTraceListener consoleListner = new ConsoleTraceListener();
 //Trace.Listeners.Add(consoleListner);
