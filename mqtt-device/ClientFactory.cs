@@ -5,23 +5,28 @@ using MQTTnet.Extensions.MultiCloud.Connections;
 
 namespace mqtt_device;
 
-internal class ClientFactory
+public class ClientFactory
 {
-    internal static string ComputeDeviceKey(string masterKey, string deviceId) =>
+    static string ComputeDeviceKey(string masterKey, string deviceId) =>
         Convert.ToBase64String(new System.Security.Cryptography.HMACSHA256(Convert.FromBase64String(masterKey)).ComputeHash(System.Text.Encoding.UTF8.GetBytes(deviceId)));
 
     internal static string? NuGetPackageVersion { get; set; }
-    internal static ConnectionSettings computedSettings = new();
+    internal static ConnectionSettings computedSettings = new()
+        ;
     private readonly IConfiguration _configuration;
+    private readonly ILogger _logger;
 
-    public ClientFactory(IConfiguration configuration)
+    public ClientFactory(IConfiguration configuration, ILogger<ClientFactory> logger)
     {
         _configuration = configuration;
+        _logger = logger;
+
     }
 
     public async Task<Idevicetemplate> CreateDeviceTemplateClientAsync(CancellationToken cancellationToken = default)
     {
         string connectionString = _configuration.GetConnectionString("cs");
+        _logger.LogWarning("Connecting to .. {cs}", connectionString);
         if (connectionString.Contains("IdScope") || connectionString.Contains("SharedAccessKey"))
         {
             var cs = new ConnectionSettings(_configuration.GetConnectionString("cs"));
@@ -43,6 +48,8 @@ internal class ClientFactory
         {
             return await CreateBrokerClientAsync(connectionString, cancellationToken);
         }
+        _logger.LogWarning("Connected to {settings}", ClientFactory.computedSettings);
+
     }
 
     private static async Task<dtmi_com_example_devicetemplate.mqtt.devicetemplate> CreateBrokerClientAsync(string connectionString, CancellationToken cancellationToken = default)
