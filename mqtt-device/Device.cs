@@ -2,7 +2,6 @@ using dtmi_com_example_devicetemplate;
 using MQTTnet.Extensions.MultiCloud;
 using MQTTnet.Extensions.MultiCloud.AzureIoTClient;
 using MQTTnet.Extensions.MultiCloud.BrokerIoTClient;
-using MQTTnet.Extensions.MultiCloud.Connections;
 
 namespace mqtt_device;
 

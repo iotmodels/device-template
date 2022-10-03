@@ -4,7 +4,6 @@ using MQTTnet.Extensions.MultiCloud.BrokerIoTClient;
 using MQTTnet.Extensions.MultiCloud.Connections;
 
 namespace mqtt_device;
-
 public class ClientFactory
 {
     static string ComputeDeviceKey(string masterKey, string deviceId) =>
@@ -25,31 +24,31 @@ public class ClientFactory
 
     public async Task<Idevicetemplate> CreateDeviceTemplateClientAsync(CancellationToken cancellationToken = default)
     {
+        Idevicetemplate devicetemplateClient;
         string connectionString = _configuration.GetConnectionString("cs");
-        _logger.LogWarning("Connecting to .. {cs}", connectionString);
+        var cs = new ConnectionSettings(_configuration.GetConnectionString("cs"));
+        _logger.LogWarning("Connecting to .. {cs}", cs);
         if (connectionString.Contains("IdScope") || connectionString.Contains("SharedAccessKey"))
         {
-            var cs = new ConnectionSettings(_configuration.GetConnectionString("cs"));
-
             if (cs.IdScope != null && _configuration["masterKey"] != null)
             {
                 var deviceId = Environment.MachineName;
                 var masterKey = _configuration.GetValue<string>("masterKey");
                 var deviceKey = ComputeDeviceKey(masterKey, deviceId);
                 var newCs = $"IdScope={cs.IdScope};DeviceId={deviceId};SharedAccessKey={deviceKey};SasMinutes={cs.SasMinutes}";
-                return await CreateHubClientAsync(newCs, cancellationToken);
+                devicetemplateClient =  await CreateHubClientAsync(newCs, cancellationToken);
             }
             else
             {
-                return await CreateHubClientAsync(connectionString, cancellationToken);
+                devicetemplateClient =  await CreateHubClientAsync(connectionString, cancellationToken);
             }
         }
         else
         {
-            return await CreateBrokerClientAsync(connectionString, cancellationToken);
+            devicetemplateClient =  await CreateBrokerClientAsync(connectionString, cancellationToken);
         }
         _logger.LogWarning("Connected to {settings}", ClientFactory.computedSettings);
-
+        return devicetemplateClient;
     }
 
     private static async Task<dtmi_com_example_devicetemplate.mqtt.devicetemplate> CreateBrokerClientAsync(string connectionString, CancellationToken cancellationToken = default)
