@@ -2,7 +2,6 @@ using dtmi_com_example_devicetemplate;
 using MQTTnet.Extensions.MultiCloud;
 using MQTTnet.Extensions.MultiCloud.AzureIoTClient;
 using MQTTnet.Extensions.MultiCloud.BrokerIoTClient;
-using MQTTnet.Extensions.MultiCloud.Connections;
 
 namespace mqtt_device;
 
@@ -14,20 +13,19 @@ public class Device : BackgroundService
 
     private readonly ILogger<Device> _logger;
     private readonly IConfiguration _configuration;
+    private readonly ClientFactory _clientFactory;
 
-    public Device(ILogger<Device> logger, IConfiguration configuration)
+    public Device(ILogger<Device> logger, IConfiguration configuration, ClientFactory clientFactory)
     {
         _logger = logger;
         _configuration = configuration;
+        _clientFactory = clientFactory;
     }
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        var cs = new ConnectionSettings(_configuration.GetConnectionString("cs"));
-        _logger.LogWarning("Connecting to .. {cs}", cs);
-        client = await new ClientFactory(_configuration).CreateDeviceTemplateClientAsync(stoppingToken);
-        _logger.LogWarning("Connected to {settings}", ClientFactory.computedSettings);
-
+        client = await _clientFactory.CreateDeviceTemplateClientAsync(stoppingToken);
+        
         client.Property_interval.OnMessage = Property_interval_UpdateHandler;
         client.Command_echo.OnMessage = Cmd_echo_Handler;
         if (client is HubMqttClient hubClient)

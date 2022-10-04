@@ -6,6 +6,7 @@ using mqtt_device;
 IHost host = Host.CreateDefaultBuilder(args)
     .ConfigureServices(services =>
     {
+        services.AddSingleton<ClientFactory>();
         services.AddHostedService<Device>();
     })
     .Build();
