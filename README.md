@@ -7,10 +7,19 @@ This repo can be used as a template repo to create new MQTT devices using [MQTTn
 - A dotnet 6.0 worker project
 - With references to MQTTnet MultiCloud extensions
 - A sample device template model
-  - The C# interface representing the DTDL interface
+  - The C# interface representing the device model
   - Implementations for Azure IoT Hub and MQTT Broker
   - Sample Device implementation
-- Default launch settings for different endpoints
+  - Default launch settings for different endpoints
+  - Sample CA certificate to connect to [mosquitto-local](https://github.com/ridomin/mosquitto-local)
+
+### Device Model
+
+The device implements:
+- `sdkInfo` as a reported property of type `string`
+- `interval` as a desired property of type `int`
+- `temp` as a telemetry of type `double` (uses random values)
+- `echo` a command that receives a `string` and returns another `string`
 
 ## How to run
 
@@ -30,7 +39,7 @@ To use DPS, or Central, provide IdScope and enrollment details.
 
 ## Interact with the device
 
-- When targeting a MQTT broker, you can use [pnp-mqtt](https://iotmodels.github.io/iotux-mqtt/) and connect to `localhost`
+- When targeting a MQTT broker, you can use [pnp-mqtt](https://iotmodels.github.io/iotux-mqtt/) and connect to the broker configured
 
 - When targeting Azure IoT Hub, you can use IoT Explorer
-- When targeting Azure IoT Central, create a device template based on the DTDL sample model.
+- When targeting Azure IoT Central, create a device template based on the DTDL sample model
