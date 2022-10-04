@@ -7,10 +7,18 @@ This repo can be used as a template repo to create new MQTT devices using [MQTTn
 - A dotnet 6.0 worker project
 - With references to MQTTnet MultiCloud extensions
 - A sample device template model
-  - The C# interface representing the DTDL interface
+  - The C# interface representing the device model
   - Implementations for Azure IoT Hub and MQTT Broker
   - Sample Device implementation
 - Default launch settings for different endpoints
+
+### Device Model
+
+The device implements:
+- `sdkInfo` as a reported property of type `string`
+- `interval` as a desired property of type `int`
+- `temp` as a telemetry of type `double` (uses random values)
+- `echo` a command that receives a `string` and returns another `string`
 
 ## How to run
 

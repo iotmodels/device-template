@@ -9,7 +9,7 @@ public class Device : BackgroundService
 {
     private Idevicetemplate? client;
 
-    private const int default_interval = 30;
+    private const int default_interval = 5;
 
     private readonly ILogger<Device> _logger;
     private readonly IConfiguration _configuration;
@@ -28,6 +28,7 @@ public class Device : BackgroundService
         
         client.Property_interval.OnMessage = Property_interval_UpdateHandler;
         client.Command_echo.OnMessage = Cmd_echo_Handler;
+
         if (client is HubMqttClient hubClient)
         {
             client.InitialState = await hubClient.GetTwinAsync(stoppingToken);
@@ -38,7 +39,6 @@ public class Device : BackgroundService
             await PropertyInitializer.InitPropertyAsync(client.Property_interval, default_interval);
         }
         await client.Property_sdkInfo.SendMessageAsync(ClientFactory.NuGetPackageVersion, stoppingToken);
-
 
         double lastTemp = 21;
         while (!stoppingToken.IsCancellationRequested)
@@ -53,7 +53,7 @@ public class Device : BackgroundService
     private async Task<Ack<int>> Property_interval_UpdateHandler(int p)
     {
         ArgumentNullException.ThrowIfNull(client);
-        _logger.LogInformation("New prop interval received");
+        _logger.LogInformation("New prop 'interval' received: {p}", p.ToString());
         var ack = new Ack<int>();
         if (p > 0)
         {
@@ -75,7 +75,7 @@ public class Device : BackgroundService
 
     private async Task<string> Cmd_echo_Handler(string req)
     {
-        _logger.LogInformation($"Command echo received");
+        _logger.LogInformation($"Command echo received: {req}", req);
         return await Task.FromResult(req + req);
     }
 
