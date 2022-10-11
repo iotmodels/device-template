@@ -12,13 +12,11 @@ public class Device : BackgroundService
     private const int default_interval = 5;
 
     private readonly ILogger<Device> _logger;
-    private readonly IConfiguration _configuration;
     private readonly ClientFactory _clientFactory;
 
-    public Device(ILogger<Device> logger, IConfiguration configuration, ClientFactory clientFactory)
+    public Device(ILogger<Device> logger, ClientFactory clientFactory)
     {
         _logger = logger;
-        _configuration = configuration;
         _clientFactory = clientFactory;
     }
 
@@ -29,15 +27,7 @@ public class Device : BackgroundService
         client.Property_interval.OnMessage = Property_interval_UpdateHandler;
         client.Command_echo.OnMessage = Cmd_echo_Handler;
 
-        if (client is HubMqttClient hubClient)
-        {
-            client.InitialState = await hubClient.GetTwinAsync(stoppingToken);
-            await TwinInitializer.InitPropertyAsync(client.Connection, client.InitialState, client.Property_interval, "interval", default_interval);
-        }
-        else
-        {
-            await PropertyInitializer.InitPropertyAsync(client.Property_interval, default_interval);
-        }
+        await client.Property_interval.InitPropertyAsync(client.InitialState, default_interval, stoppingToken);
         await client.Property_sdkInfo.SendMessageAsync(ClientFactory.NuGetPackageVersion, stoppingToken);
 
         double lastTemp = 21;
@@ -75,7 +65,7 @@ public class Device : BackgroundService
 
     private async Task<string> Cmd_echo_Handler(string req)
     {
-        _logger.LogInformation($"Command echo received: {req}", req);
+        _logger.LogInformation("Command echo received: {req}", req);
         return await Task.FromResult(req + req);
     }
 
