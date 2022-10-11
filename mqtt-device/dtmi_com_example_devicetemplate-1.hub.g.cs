@@ -19,6 +19,7 @@ public class devicetemplate : HubMqttClient, Idevicetemplate
         Property_interval = new WritableProperty<int>(c, "interval");
         Telemetry_temp = new Telemetry<double>(c, "temp");
         Command_echo = new Command<string, string>(c, "echo");
+        InitialState = GetTwinAsync().Result;
     }
 
     public async Task<MqttClientPublishResult> SendTelemetryAsync(AllTelemetries payload, CancellationToken t) =>
