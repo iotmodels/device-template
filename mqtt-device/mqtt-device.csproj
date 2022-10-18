@@ -12,8 +12,8 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
-    <PackageReference Include="MQTTnet.Extensions.MultiCloud.AzureIoTClient" Version="0.4.*" />
-    <PackageReference Include="MQTTnet.Extensions.MultiCloud.BrokerIoTClient" Version="0.4.*" />
+    <PackageReference Include="MQTTnet.Extensions.MultiCloud.AzureIoTClient" Version="0.5.*" />
+    <PackageReference Include="MQTTnet.Extensions.MultiCloud.BrokerIoTClient" Version="0.5.*" />
   </ItemGroup>
 	<ItemGroup>
 		<Compile Update="*.g.cs">
