@@ -16,6 +16,10 @@
     <ContentTargetFolders>content</ContentTargetFolders>
     <NoWarn>$(NoWarn);NU5128</NoWarn>
     <NoDefaultExcludes>true</NoDefaultExcludes>
+
+    <Copyright>copyleft</Copyright>
+		<PackageProjectUrl>https://github.com/iotmodels/device-template</PackageProjectUrl>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>

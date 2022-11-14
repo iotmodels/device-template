@@ -10,5 +10,12 @@
       "language": "C#",
       "type": "project"
     },
-    "sourceName": "mqtt-device"
+    "sourceName": "mqtt-device",
+    "postActions": [{
+      "description": "To run this project you must specify the MQTT Connection Settings.",
+      "manualInstructions": [{
+        "text": "dotnet run /ConnectionStrings:cs=<Your Connection String>"
+      }],
+      "actionId": "AC1156F7-BB77-4DB8-B28F-24EEBCCA1E5C"
+    }]
   }
