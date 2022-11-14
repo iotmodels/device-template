@@ -24,6 +24,8 @@ jobs:
       run: dotnet restore 
     - name: Build
       run: dotnet build --no-restore
+    - name: Pack template package
+      run: dotnet pack mqtt-device-template.csproj
     - name: List packages
       run: |
         echo "## Installed Packages " >> $GITHUB_STEP_SUMMARY
