@@ -1,0 +1,14 @@
+{
+    "$schema": "http://json.schemastore.org/template",
+    "author": "rido",
+    "classifications": [ "Common", "Worker" ],
+    "identity": "MQTTNet.IoT.Device",
+    "name": "MQTT Device",
+    "shortName": "mqtt-device", 
+    "preferNameDirectory": true,
+    "tags": {
+      "language": "C#",
+      "type": "project"
+    },
+    "sourceName": "mqtt-device"
+  }
