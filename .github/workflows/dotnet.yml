@@ -8,12 +8,7 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: mqtt-device
-
     steps:
     - uses: actions/checkout@v3
     - name: Setup .NET
@@ -21,13 +16,13 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Restore dependencies
-      run: dotnet restore 
+      run: dotnet restore ./mqtt-device/ 
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build --no-restore ./mqtt-device/
     - name: Pack template package
-      run: dotnet pack mqtt-device-template.csproj
+      run: dotnet pack ./mqtt-device-template.csproj
     - name: List packages
       run: |
         echo "## Installed Packages " >> $GITHUB_STEP_SUMMARY
         echo " " >> $GITHUB_STEP_SUMMARY
-        dotnet list package >> $GITHUB_STEP_SUMMARY
+        dotnet list package ./mqtt-device/ >> $GITHUB_STEP_SUMMARY
