@@ -25,4 +25,4 @@ jobs:
       run: |
         echo "## Installed Packages " >> $GITHUB_STEP_SUMMARY
         echo " " >> $GITHUB_STEP_SUMMARY
-        dotnet list package ./mqtt-device/ >> $GITHUB_STEP_SUMMARY
+        dotnet list ./mqtt-device/ package >> $GITHUB_STEP_SUMMARY
