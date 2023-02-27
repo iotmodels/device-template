@@ -43,7 +43,7 @@ To use DPS, or Central, provide IdScope and enrollment details.
 
 ## Interact with the device
 
-- When targeting a MQTT broker, you can use [pnp-mqtt](https://iotmodels.github.io/iotux-mqtt/) and connect to the broker configured
+- When targeting a MQTT broker, you can use [iotux-mqtt](https://iotmodels.github.io/iotux-mqtt/) and connect to the broker configured
 
 - When targeting Azure IoT Hub, you can use IoT Explorer
 - When targeting Azure IoT Central, create a device template based on the DTDL sample model
