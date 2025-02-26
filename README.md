@@ -6,7 +6,7 @@ This repo can be used as a template repo to create new MQTT devices using [MQTTn
 dotnet new install IoTModels.MqttDevice.Template
 dotnet new mqtt-device -o myDevice
 ```
-
+ 
 ## What is in this template?
 
 - A dotnet 6.0 worker project
